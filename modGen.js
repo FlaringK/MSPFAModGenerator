@@ -6,5 +6,5 @@ window.addEventListener("message", (e) => {
   // if (e.origin !== "https://mspfa.com/") return;
 
   console.log(e.data)
-  test.innerHTML = e.data
+  test.innerText = e.data
 }, false)
