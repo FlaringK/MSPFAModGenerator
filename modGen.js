@@ -206,7 +206,7 @@ let templateMod = ""
 fetch('./templateMod.js').then(response => response.text()).then(text => {
   templateMod = text
   console.log(text)
-  genMSPFAMod(testObject)
+  // genMSPFAMod(testObject)
 });
 
 // GENERATE MOD
