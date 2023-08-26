@@ -217,7 +217,7 @@ const addLog = text => {
 
 const convertImage = async (url, zip) => {
   
-  const name = url.replace(/https?:\/\//g, "")
+  const name = url.replace(/https?:\/\//g, "").replace(/"<>#%\{\}\|\\\^~\[\]`;\?:@=&/g, "")
   addLog("Fetching " + url)
   
   try {
