@@ -5,7 +5,7 @@ test.innerHTML = "Vriska"
 
 window.addEventListener("message", (e) => {
   if (e.origin !== "https://mspfa.com/") {
-    console.log("Not correct origin")
+    console.log("Not correct origin", e.origin)
     return;
   }
 
