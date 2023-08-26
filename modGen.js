@@ -1,7 +1,8 @@
 // Get message
-const test = document.getElementById("test")
+const log = document.getElementById("test")
+const btn = document.getElementById("downloadBtn")
 
-test.innerHTML = "Vriska"
+btn.disabled = true
 
 window.addEventListener("message", (e) => {
   if (e.origin !== "https://mspfa.com") {
@@ -10,7 +11,7 @@ window.addEventListener("message", (e) => {
   }
 
   console.log(e.data)
-  test.innerText = e.data
+  log.innerText = e.data
   genMSPFAMod(JSON.parse(e.data))
 }, false)
 
@@ -205,14 +206,14 @@ let templateMod = ""
 fetch('./templateMod.js').then(response => response.text()).then(text => {
   templateMod = text
   console.log(text)
-  // genMSPFAMod(testObject)
+  genMSPFAMod(testObject)
 });
 
 // GENERATE MOD
 
 const addLog = text => { 
   console.log(text) 
-  test.innerText = text + "\n" + test.innerText
+  log.innerHTML = text + "<br>" + log.innerHTML
 }
 
 const convertImage = async (url, zip) => {
@@ -225,7 +226,7 @@ const convertImage = async (url, zip) => {
     const imgData = new File([imageBlob], name);
     zip.file("assets/mspfaAssets/" + name, imgData, { base64: true })
   } catch(e) {
-    addLog("Failed to fetch " + url)
+    addLog("<span class=\"fail\">Failed to fetch " + url + "</span>")
   }
 
   return "assets://images/mspfaAssets/" + name
@@ -281,8 +282,8 @@ const genMSPFAMod = async story => {
   let zip = new JSZip();
 
   // Convert and Download Images
-  story.o = await convertImage(story.o, zip) // icon
   story.x = await convertImage(story.x, zip) // banner
+  story.o = await convertImage(story.o, zip) // icon
   story.r = await convertImagesInBbcode(story.r, zip) // Description
   story.p = await convertAllPageImages(story.p, zip) // Pages
   story.y = await convertCSSImages(story.y, zip) // CSS
@@ -303,8 +304,8 @@ const genMSPFAMod = async story => {
     modName = "MSPFA-Port_" + story.n.replace(/[^a-z0-9]/gi, '-').toLowerCase();
   });
 
-  addLog(`=== ${story.n} ready to download ===`)
-
+  addLog(`<b>=== ${story.n} ready to download ===</b>`)
+  btn.disabled = false
 }
 
 const downloadMod = () => {
