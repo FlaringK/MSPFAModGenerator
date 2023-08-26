@@ -1,3 +1,30 @@
+// ADVENTURE SETUP
+const desc = document.querySelector(".smol").parentElement.parentElement.nextElementSibling.querySelector("span")
+
+const downloadModButton = document.createElement("button")
+downloadModButton.className = "major"
+downloadModButton.innerText = "Download Adventure as UHC Mod"
+downloadModButton.style.display = "block"
+
+const iframe = document.createElement("iframe")
+iframe.id = "modGen"
+iframe.src = "https://flaringk.github.io/MSPFAModGenerator/"
+iframe.style.width = "880px"
+iframe.style.height = "30vh"
+
+downloadModButton.onclick = () => {
+  MSPFA.dialog(
+    "Download Adventure as UHC Mod",
+    iframe,
+    ["Close"],
+    (o, f) => {}
+  )
+  postStoryObject()
+}
+
+desc.insertAdjacentElement("beforebegin", downloadModButton)
+
+// LOADING MOD
 const importRegex = /@import url\(["']?(.+?)["']?\);/g
 
 // CSS
@@ -40,5 +67,3 @@ let postStoryObject = async () => {
     "https://flaringk.github.io/MSPFAModGenerator/"
   )
 }
-
-postStoryObject()
