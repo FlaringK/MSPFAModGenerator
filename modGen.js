@@ -4,8 +4,8 @@ const test = document.getElementById("test")
 test.innerHTML = "Vriska"
 
 window.addEventListener("message", (e) => {
-  if (e.origin !== "https://mspfa.com/") {
-    console.log("Not correct origin", e.origin)
+  if (e.origin !== "https://mspfa.com") {
+    // console.log("Not correct origin", e.origin)
     return;
   }
 
