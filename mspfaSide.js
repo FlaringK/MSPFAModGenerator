@@ -11,6 +11,7 @@ iframe.id = "modGen"
 iframe.src = "https://flaringk.github.io/MSPFAModGenerator/"
 iframe.style.width = "880px"
 iframe.style.height = "30vh"
+iframe.onload = () => { postStoryObject() }
 
 downloadModButton.onclick = () => {
   MSPFA.dialog(
@@ -19,7 +20,6 @@ downloadModButton.onclick = () => {
     ["Close"],
     (o, f) => {}
   )
-  postStoryObject()
 }
 
 desc.insertAdjacentElement("beforebegin", downloadModButton)
