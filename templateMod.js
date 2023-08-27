@@ -171,7 +171,7 @@ module.exports = {
 
       adventurePages[adventureUrl.toUpperCase() + (i + 1)] = {
         component: {
-          title: () => adventureData.n,
+          title: () => pageData.c + " - " + adventureData.n,
           next: () => "/" + adventureUrl + nextPageArrowIndex,
           template: pageHtml
         },
