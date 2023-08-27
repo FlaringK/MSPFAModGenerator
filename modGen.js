@@ -280,7 +280,12 @@ const genMSPFAMod = async story => {
 
   console.log(story)
 
-  let zip = new JSZip();
+  let zip = new JSZip();4
+
+  // get mod text
+  await fetch('./templateMod.js').then(response => response.text()).then(text => {
+    templateMod = text
+  });
 
   // Convert and Download Images
   // story.x = await convertImage(story.x, zip) // banner
