@@ -218,7 +218,8 @@ const addLog = text => {
 
 const convertImage = async (url, zip) => {
   
-  const name = url.replace(/https?:\/\//g, "").replace(/"<>#%\{\}\|\\\^~\[\]`;\?:@=&/g, "")
+  const name = url.replace(/https?:\/\//g, "").replace(/["<>#%\{\}\|\\\^~\[\]`;\?:@=&]/g, "")
+  console.log(name)
   addLog("Fetching " + url)
   
   try {
@@ -282,7 +283,7 @@ const genMSPFAMod = async story => {
   let zip = new JSZip();
 
   // Convert and Download Images
-  story.x = await convertImage(story.x, zip) // banner
+  // story.x = await convertImage(story.x, zip) // banner
   story.o = await convertImage(story.o, zip) // icon
   story.r = await convertImagesInBbcode(story.r, zip) // Description
   story.p = await convertAllPageImages(story.p, zip) // Pages
@@ -313,7 +314,7 @@ const downloadMod = () => {
 }
 
 // https://dev.to/nombrekeff/download-file-from-blob-21ho
-function downloadBlob(blob, name = 'file.txt') {
+function downloadBlob(blob, name = 'mod.zip') {
   // Convert your blob into a Blob URL (a special url that points to an object in the browser's memory)
   const blobUrl = URL.createObjectURL(blob);
 
