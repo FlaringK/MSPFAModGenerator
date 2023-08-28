@@ -16,6 +16,11 @@ body {
   font-weight: 600;
 }
 
+.succ {
+  color: limegreen;
+  font-weight: 600;
+}
+
 b {
   font-size: 1.5em;
 }

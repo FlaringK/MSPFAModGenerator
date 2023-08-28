@@ -226,6 +226,7 @@ const convertImage = async (url, zip) => {
     const imageBlob = await fetch(url).then(response => response.blob())
     const imgData = new File([imageBlob], name);
     zip.file("assets/mspfaAssets/" + name, imgData, { base64: true })
+    addLog("<span class=\"succ\">Fetched " + url + "</span>")
   } catch(e) {
     addLog("<span class=\"fail\">Failed to fetch " + url + "</span>")
   }
@@ -254,24 +255,44 @@ const convertImagesInBbcode = async (bodyText, zip) => {
 
 const convertAllPageImages = async (pages, zip) => {
 
+  let promises = []
+
   for (let pIndex = 0; pIndex < pages.length; pIndex++) {
 
-    pages[pIndex].c = await convertImagesInBbcode(pages[pIndex].c, zip)
-    pages[pIndex].b = await convertImagesInBbcode(pages[pIndex].b, zip)
+    promises.push(new Promise(async (resolve) => {
+      pages[pIndex].c = await convertImagesInBbcode(pages[pIndex].c, zip)
+      pages[pIndex].b = await convertImagesInBbcode(pages[pIndex].b, zip)
+      resolve()
+    }))
     
   }
+
+  await Promise.all(promises)
 
   return pages
 }
 
 const convertCSSImages = async (css, zip) => {
+  
   let matches = css.match(cssImgUrlRegex)
+  
   if (matches) {
+
+    let promises = []
+
     for (let mIndex = 0; mIndex < matches.length; mIndex++) {
       const match = matches[mIndex].replace(/^url\("?/, "").replace(/"?\)$/, "");
       console.log(match)
-      css = css.replace(match, await convertImage(match, zip))
+
+      promises.push(new Promise(async (resolve) => {
+        css = css.replace(match, await convertImage(match, zip))
+        resolve()
+      }))
+
     }
+
+    await Promise.all(promises)
+
   }
   return css
 }
