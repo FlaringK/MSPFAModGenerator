@@ -212,7 +212,7 @@ fetch('./templateMod.js').then(response => response.text()).then(text => {
 // GENERATE MOD
 
 const addLog = text => { 
-  console.log(text) 
+  // console.log(text) 
   log.innerHTML = text + "<br>" + log.innerHTML
 }
 
@@ -307,6 +307,8 @@ const genMSPFAMod = async story => {
   await fetch('./templateMod.js').then(response => response.text()).then(text => {
     templateMod = text
   });
+
+  addLog("Starting up.....")
 
   // Convert and Download Images
   // story.x = await convertImage(story.x, zip) // banner
