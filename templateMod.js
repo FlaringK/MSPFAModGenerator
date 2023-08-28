@@ -79,8 +79,8 @@ module.exports = {
   author: `<a href='https://mspfa.com/user/?u=${adventureDetails.authId}'>${adventureDetails.author}</a> Porter by: <a href='https://flaringk.github.io'>FlaringK</a>`,
   modVersion: 0.2,
 
-  summary: `A port of the MS Paint Fan Adventure "${adventureDetails.name}"`,
-  description: `A port of the MS Paint Fan Adventure "${adventureDetails.name}". Port Generator created by FlaringK`,
+  summary: `A port of the MS Paint Fan Adventure "${adventureDetails.name}" (Find this adventure at the bottom of the homepage)`,
+  description: `A port of the MS Paint Fan Adventure "${adventureDetails.name}". Port Generator created by FlaringK.`,
 
   trees: {
     './assets/': 'assets://images/'
