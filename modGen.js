@@ -300,7 +300,7 @@ const convertCSSImages = async (css, zip) => {
     let finished = 0
 
     for (let mIndex = 0; mIndex < matches.length; mIndex++) {
-      const match = matches[mIndex].replace(/^url\("?/, "").replace(/"?\)$/, "");
+      const match = matches[mIndex].replace(/^url\(["']?/, "").replace(/["']?\)$/, "");
       console.log(match)
 
       promises.push(new Promise(async (resolve) => {
