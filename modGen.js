@@ -249,14 +249,16 @@ const convertImagesInBbcode = async (bodyText, zip) => {
   if (matches) {
     for (let mIndex = 0; mIndex < matches.length; mIndex++) {
       const match = matches[mIndex];
-      bodyText = bodyText.replace(match[1], await convertImage(match[1], zip))
+      const assetUrl = await convertImage(match[1], zip)
+      bodyText = bodyText.replace(match[1], assetUrl)
     }
   }  
   let altMatches = [...bodyText.matchAll(altImgTagRegex)]
   if (altMatches) {
     for (let mIndex = 0; mIndex < altMatches.length; mIndex++) {
       const match = altMatches[mIndex];
-      bodyText = bodyText.replace(match[3], await convertImage(match[3], zip))
+      const assetUrl = await convertImage(match[3], zip)
+      bodyText = bodyText.replace(match[3], assetUrl)
     }
   }
   return bodyText
@@ -302,7 +304,8 @@ const convertCSSImages = async (css, zip) => {
       console.log(match)
 
       promises.push(new Promise(async (resolve) => {
-        css = css.replace(match, await convertImage(match, zip))
+        const assetUrl = await convertImage(match, zip)
+        css = css.replace(match, assetUrl)
 
         finished += 1
         setProgress(finished / matches.length, `CSS Images Downloaded: ${finished} / ${matches.length}`)
