@@ -349,6 +349,7 @@ const genMSPFAMod = async story => {
   zip.file("mod.js", templateMod.replace("const adventureDetails = {}", "const adventureDetails = " + JSON.stringify(adventureDetails)))
 
   // Download Mod
+  setProgress(0.99, "Generating Zip File")
   await zip.generateAsync({type:"blob"}).then(function(content) {
     // downloadBlob(content, "mod.zip")
     blob = content
