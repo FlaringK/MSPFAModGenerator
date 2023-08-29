@@ -1,6 +1,9 @@
 // Get message
 const log = document.getElementById("test")
+const bar = document.getElementById("progressBar")
 const btn = document.getElementById("downloadBtn")
+
+const testDownload = false
 
 btn.disabled = true
 
@@ -206,14 +209,20 @@ let templateMod = ""
 fetch('./templateMod.js').then(response => response.text()).then(text => {
   templateMod = text
   console.log(text)
-  // genMSPFAMod(testObject)
+  if (testDownload) {
+    genMSPFAMod(testObject)
+  }
 });
 
 // GENERATE MOD
 
 const addLog = text => { 
-  // console.log(text) 
   log.innerHTML = text + "<br>" + log.innerHTML
+}
+
+const setProgress = (percent, text) => {
+  bar.style.setProperty("--progess", `${percent * 100}%`)
+  bar.innerText = text
 }
 
 const convertImage = async (url, zip) => {
@@ -255,13 +264,19 @@ const convertImagesInBbcode = async (bodyText, zip) => {
 
 const convertAllPageImages = async (pages, zip) => {
 
+  setProgress(0, "Downloading Page Images")
   let promises = []
+  let finished = 0
 
   for (let pIndex = 0; pIndex < pages.length; pIndex++) {
 
     promises.push(new Promise(async (resolve) => {
       pages[pIndex].c = await convertImagesInBbcode(pages[pIndex].c, zip)
       pages[pIndex].b = await convertImagesInBbcode(pages[pIndex].b, zip)
+
+      finished += 1
+      setProgress(finished / pages.length, `Pages Downloaded: ${finished} / ${pages.length}`)
+
       resolve()
     }))
     
@@ -278,7 +293,9 @@ const convertCSSImages = async (css, zip) => {
   
   if (matches) {
 
+    setProgress(0, "Downloading CSS Images")
     let promises = []
+    let finished = 0
 
     for (let mIndex = 0; mIndex < matches.length; mIndex++) {
       const match = matches[mIndex].replace(/^url\("?/, "").replace(/"?\)$/, "");
@@ -286,6 +303,10 @@ const convertCSSImages = async (css, zip) => {
 
       promises.push(new Promise(async (resolve) => {
         css = css.replace(match, await convertImage(match, zip))
+
+        finished += 1
+        setProgress(finished / matches.length, `Pages Downloaded: ${finished} / ${matches.length}`)
+
         resolve()
       }))
 
@@ -304,6 +325,7 @@ const genMSPFAMod = async story => {
   let zip = new JSZip();4
 
   // get mod text
+  setProgress(0, "Fetching template mod")
   await fetch('./templateMod.js').then(response => response.text()).then(text => {
     templateMod = text
   });
@@ -333,7 +355,8 @@ const genMSPFAMod = async story => {
     modName = "MSPFA-Port_" + story.n.replace(/[^a-z0-9]/gi, '-').toLowerCase();
   });
 
-  addLog(`<b>=== ${story.n} ready to download ===</b>`)
+  addLog(`<b>=== "${story.n}" is ready to download ===</b>`)
+  setProgress(1, "Ready to download")
   btn.disabled = false
 }
 
