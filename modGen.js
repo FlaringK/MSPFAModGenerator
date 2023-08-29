@@ -227,7 +227,7 @@ const setProgress = (percent, text) => {
 
 const convertImage = async (url, zip) => {
   
-  const name = url.replace(/https?:\/\//g, "").replace(/["<>#%\{\}\|\\\^~\[\]`;\?:@=&]/g, "")
+  const name = url.replace(/https?:\/\//g, "").replace(/["<>#%\{\}\|\\\^~\[\]`;:@=&]/g, "").replace(/\?.*/g, "")
   console.log(name)
   addLog("Fetching " + url)
   
