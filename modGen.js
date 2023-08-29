@@ -23,7 +23,7 @@ window.addEventListener("message", (e) => {
 const importRegex = /@import url\(["']?(.+?)["']?\);/g
 const imgTagRegex = /\[img\]([^"]*?)\[\/img\]/gi
 const altImgTagRegex = /\[img=(\d*?)x(\d*?)\]([^"]*?)\[\/img\]/gi
-const cssImgUrlRegex = /url\(["']?((.+?)\.(a?png|jpe?g|pjp|pjpeg|bmp|gif|ico|cur|svg|tiff?|webp))["']?\)/gi
+const cssImgUrlRegex = /url\(["']?((.+?)\.(a?png|jpe?g|pjp|pjpeg|bmp|gif|ico|cur|svg|tiff?|webp)(\?.*)?)["']?\)/gi
 
 let blob
 let modName
