@@ -209,7 +209,7 @@ module.exports = {
     // Format CSS
     let adventureCSS = adventureData.y
     adventureCSS = formatPageRanges(adventureCSS) // Apply page ranges
-    adventureCSS = adventureCSS.replace(/@import.+;/g, "") // remove imports and custom JS
+    adventureCSS = adventureCSS.replace(/@mspfa.+;/g, "") // remove custom mspfa css
     adventureCSS = "." + adventureCSSClass + " " + adventureCSS.replace(/{({(.|\n)*?}|.|\n)*?}/g, "$& ." + adventureCSSClass + " ") + "{}" // Format everything under .mspfa
     adventureCSS = adventureCSS.replace(new RegExp(`.${adventureCSSClass} [^{}]*?@`, "g"), "@") // Fix formatting with @keyframes
 
