@@ -305,7 +305,7 @@ const convertCSSImages = async (css, zip) => {
         css = css.replace(match, await convertImage(match, zip))
 
         finished += 1
-        setProgress(finished / matches.length, `Pages Downloaded: ${finished} / ${matches.length}`)
+        setProgress(finished / matches.length, `CSS Images Downloaded: ${finished} / ${matches.length}`)
 
         resolve()
       }))
